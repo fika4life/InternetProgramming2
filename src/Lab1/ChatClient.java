@@ -12,12 +12,16 @@ import java.util.Scanner;
  */
 public class ChatClient {
 
+
+
     private BufferedReader in;
     private PrintWriter out;
     private static final Scanner scan=new Scanner(System.in);
 
     public ChatClient(Socket socket) {
         try {
+
+            //gets in and out streams of client
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream());
             new Thread(){
@@ -54,10 +58,14 @@ public class ChatClient {
         System.out.println("Write your name here: ");
         String name=scan.nextLine();
         out.println("!name!: "+name);
+        //in order to send out the message
         out.flush();
     }
 
     public void writeSomeThing(){
+
+
+        //writes out message provided by client
         while(true){
             out.println(scan.nextLine());
             out.flush();
