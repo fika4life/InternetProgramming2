@@ -34,7 +34,7 @@ public class ServerConnection {
 
     }
 
-    public void sendMessage(String message,String name){
+    public synchronized void sendMessage(String message,String name){
         for(ChatConnection con: connectedClients){
             con.sendMessage(message,name);
         }

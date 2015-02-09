@@ -28,7 +28,7 @@ public class GuessServer {
             System.out.println("Klient är ansluten");
             BufferedReader request =
                     new BufferedReader(new InputStreamReader(s.getInputStream()));
-            String str = request.readLine();
+            String firstLine = request.readLine();
 
             System.out.println("Förfrågan klar.");
             s.shutdownInput();
@@ -86,10 +86,10 @@ public class GuessServer {
             }
 
             //Gets user's guess from url if there is a guess
-            if (str.contains("guess")){
+            if (firstLine.contains("guess")){
                 playerInfo.numOfGuesses++;
                 response.println("<p>Number of guesses: " + playerInfo.numOfGuesses + "</p>");
-                int guess= getGuess(str);
+                int guess = getGuess(firstLine);
                 if(guess==playerInfo.secretNumber){
                     response.println("<p>CORRECT! The number was: " + playerInfo.secretNumber + "</p>");
                     map.put(clientId, new PlayerInfo());
