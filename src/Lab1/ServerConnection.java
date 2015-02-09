@@ -18,9 +18,16 @@ public class ServerConnection {
         try {
             ServerSocket ss=new ServerSocket(portNumber);
             Socket s=null;
+            //socket waits for instream from client
             while((s=ss.accept())!=null){
+
+                //creates new chatConnection with socket and this serverConnection object as parameters.
                 ChatConnection chatConnection=new ChatConnection(s,this);
+
+                //start the chatConnection thread
                 chatConnection.start();
+
+                //add the current chatConnection to the connectedClients collection
                 connectedClients.add(chatConnection);
             }
         } catch (IOException e) {
@@ -30,10 +37,8 @@ public class ServerConnection {
 
     public static final int portNumber=2635;
 
-    private void listenForConnection(){
 
-    }
-
+    //sends messages to all connected clients
     public void sendMessage(String message,String name){
         for(ChatConnection con: connectedClients){
             con.sendMessage(message,name);
@@ -41,6 +46,7 @@ public class ServerConnection {
     }
 
     public static void main(String[] args) {
+        //creates serverConnection instance
         final ServerConnection serverConnection=new ServerConnection();
 
     }
