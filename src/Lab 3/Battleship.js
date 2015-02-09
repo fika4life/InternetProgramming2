@@ -1,22 +1,35 @@
-$( function() {
-    var rows=9;
-    var columns=9;
+var rows=9;
+var columns=9;
 
-    var matrix = [];
-    for(var k=0; k<rows; k++) {
-        matrix[k] = [];
-        for(var m=0; m<columns; m++) {
-            matrix[k][m] = false;
+var model=new BattleShipModel(rows,columns);
+
+
+function showStatus(){
+    for(var i=0;i<rows;i++){
+        for(j=0;j<columns;j++){
+            if(model.checkAttacked(i,j)){
+                var square=$("#"+i+"x"+j);
+                if(model.checkHasShip(i,j)) {
+                    if (!square.hasClass("attacked")) {
+                        square.addClass("attacked");
+                    }
+                }
+                else {
+                    if (!square.hasClass("missed")) {
+                        square.addClass("missed");
+                    }
+                }
+            }
         }
     }
+}
 
-
-
+$(function() {
 
     for(var i=0;i<rows;i++){
         var row='<div class="row">';
         for(j=0;j<columns;j++){
-            row+='<div class="square" id="'+i+"x"+j+'" />';
+            row+='<div class="square"; id="'+i+"x"+j+'" />';
         }
         row+='</div>';
         $("#board").append(row);
@@ -26,6 +39,5 @@ $( function() {
             $("#text-info").html(idString);
         });
     }
-
 });
 

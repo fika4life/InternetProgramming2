@@ -30,6 +30,14 @@
     float:left;
 }
 
+.missed{
+    background-color: blue;
+}
+
+.attacked{
+    background-color:red;
+}
+
 button{
 
 }
