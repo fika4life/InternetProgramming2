@@ -26,16 +26,16 @@ public class HttpUrlConnectionClient {
 
 
             int rounds = 100;
-            int[] guesses = new int[rounds];
+            int[] guessesNeeded = new int[rounds];
 
             int guess=50;
             String clientId=null;
 
             for(int i = 0 ; i<rounds; i++) {
-                int guessNumber = 0;
+                int numberOfGuesses = 0;
 
                 while (true) {
-                    guessNumber++;
+                    numberOfGuesses++;
                     url = new URL("http", IP, 8080, "/?guess=" + guess);
                     HttpURLConnection con = null;
                     con = (HttpURLConnection) url.openConnection();
@@ -57,7 +57,7 @@ public class HttpUrlConnectionClient {
                     }
 
                     if (response.contains("CORRECT!")) {
-                        guesses[i] = guessNumber;
+                        guessesNeeded[i] = numberOfGuesses;
                         break;
                     } else {
                         Pattern pattern = Pattern.compile("<p>The number is between: ([0-9]+) and ([0-9]+)</p>");
@@ -74,7 +74,7 @@ public class HttpUrlConnectionClient {
                 }
             }
             int totalGuesses = 0;
-            for (int theGuess:guesses){
+            for (int theGuess:guessesNeeded){
                 totalGuesses+=theGuess;
 
             }
