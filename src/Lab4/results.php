@@ -19,8 +19,7 @@ $room = $_GET['rum'];
 $price = $_GET['pris'];
 $fee = $_GET['avgift'];
 
-
-
+setcookie("userInput" ,json_encode(array("lan"=>$county,"objekttyp"=>$type, "area"=>$area, "rum"=>$room, "pris"=>$price, "avgift"=>$fee)));
 
 $conn = connect();
 
@@ -28,6 +27,49 @@ $conn = connect();
 $db = new DatabaseHandler($conn);
 $result = $db->searchDatabase($county,$type,$area,$room,$price,$fee);
 
-var_dump($result);
 
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Blocket Results</title>
+</head>
+<body>
+
+<h1>Blocket Results</h1>
+
+<table>
+    <thead>
+        <td>Län</td>
+        <td>Objekttyp</td>
+        <td>Area</td>
+        <td>Rum</td>
+        <td>Pris</td>
+        <td>Avgift</td>
+    </thead>
+    <tbody>
+        <?php
+            for ($i=0; $i<count($result); $i++){
+                $array = $result[$i];
+                echo "<tr>
+                    <td>" . $array["lan"] . "</td>";
+                echo "<td>" . $array["objekttyp"] . "</td>";
+                echo "<td>" . $array["area"] . "</td>";
+                echo "<td>" . $array["rum"] . "</td>";
+                echo "<td>" . $array["pris"] . "</td>";
+                echo "<td>" . $array["avgift"] . "</td> </tr>";
+
+            }
+
+
+        ?>
+    </tbody>
+</table>
+
+
+</body>
+</html>
 
