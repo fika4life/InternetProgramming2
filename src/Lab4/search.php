@@ -2,10 +2,22 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
+    require('db_connect.php');
+    require('DatabaseHandler.php');
+
+    $conn = connect();
+    $db = new DatabaseHandler($conn);
+
+
     if (isset($_COOKIE['userInput'])){
         $userInputCookie = (array)json_decode($_COOKIE['userInput']);
 
     }
+
+
+
+        $counties = $db->getAllValuesInColumn("lan");
+        $types = $db->getAllValuesInColumn("objekttyp");
 ?>
 
 <!DOCTYPE html>
@@ -19,13 +31,21 @@
 <h1>BostadBlocket</h1>
 <form method="get" action="results.php">
     Län <select name="lan">
-            <option value="Stockholm" <?php if(isset($userInputCookie) && $userInputCookie["lan"]==="Stockholm"){echo "selected";}  ?> >Stockholm</option>
-            <option value="Uppsala"<?php if(isset($userInputCookie) && $userInputCookie["lan"]==="Uppsala"){echo "selected";}  ?>>Uppsala</option>
-             </select>
-    Objekttyp <select name="objekttyp">
-        <option value="Bostadsrätt" <?php if(isset($userInputCookie) && $userInputCookie["objekttyp"]==="Bostadsrätt"){echo "selected";}  ?>>Bostadsrätt</option>
-        <option value="Villa" <?php if(isset($userInputCookie) && $userInputCookie["objekttyp"]==="Villa"){echo "selected";}  ?>>Villa</option>
+        <?php foreach($counties as $county){
+             echo ('<option value="' . $county['lan']. '" ');
+            if(isset($userInputCookie) && $userInputCookie["lan"]===$county['lan']){echo "selected";}
+            echo('>'.$county['lan'].'</option>');
+        }
+        ?>
     </select>
+    Objekttyp <select name="objekttyp">
+            <?php foreach($types as $typ){
+                echo ('<option value="' . $typ['objekttyp']. '" ');
+                if(isset($userInputCookie) && $userInputCookie["lan"]===$typ['objekttyp']){echo "selected";}
+                echo('>'.$typ['objekttyp'].'</option>');
+            }
+            ?>
+        </select>
     Min area
         <input type="number" name="area" value="<?php if(isset($userInputCookie)){echo $userInputCookie['area'];} ?>">
     Min rum
@@ -38,5 +58,8 @@
     <input type="submit" value="Search">
 </form>
 
+
+<p style ='color:red;'> to do:
+    Need to make objekt choices selected from database</p>
 </body>
 </html>
