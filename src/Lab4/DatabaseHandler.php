@@ -37,7 +37,7 @@ class DatabaseHandler{
             $query = substr($query,0,strlen($query)-5);
         }
 
-        var_dump($query);
+
 
         $stmt =  $this->conn->prepare($query);
         $stmt -> bindParam(':lan', $aCounty);
