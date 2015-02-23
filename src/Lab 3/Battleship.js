@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 $(function() {
     var rows=9;
     var columns=9;

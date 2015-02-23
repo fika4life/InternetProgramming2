@@ -5,11 +5,24 @@
  * Date: 2/16/15
  * Time: 4:37 PM
  */
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 
 class DatabaseHandler{
 
     function DatabaseHandler(PDO $PDO){
         $this-> conn=$PDO;
+    }
+
+    function getAllValuesInColumn($column){
+        $res = $this->conn->query(
+            "SELECT DISTINCT " . $column .  " FROM bostader"
+        );
+
+        return $res -> fetchAll();
+
+
     }
 
     function searchDatabase($aCounty, $aType=false, $minArea=false, $minRoom=false, $maxPrice=false, $maxFee=false){
