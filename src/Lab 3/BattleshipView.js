@@ -8,7 +8,7 @@ var BattleshipView = function(board,model,rows,columns){
     this.rows=rows;
     this.columns=columns;
 
-
+//creates the html code of the grid.
     for(var i=0;i<rows;i++) {
         var row='<div class="row">';
         for (j = 0; j < columns; j++) {
@@ -19,11 +19,11 @@ var BattleshipView = function(board,model,rows,columns){
     }
 
 
-
+//called when user found all ships.
     this.victory=function(){
         alert("YOU FOUND ALL THE SHIPS. CONGRATULATIONS!");
     };
-
+//resets the color of the squares to white again.
     this.reset=function(){
         for(var i=0;i<this.rows;i++) {
             for (j = 0; j < this.columns; j++) {
@@ -33,7 +33,7 @@ var BattleshipView = function(board,model,rows,columns){
             }
         }
     };
-
+//shows different colors of square
     this.showStatus=function(){
         for(var i=0;i<this.rows;i++){
             for(j=0;j<this.columns;j++){

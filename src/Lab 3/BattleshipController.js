@@ -4,7 +4,7 @@
 var BattleshipController = function(battleshipView,model){
 
 
-
+//checks which square user has clicked on and applies it to the model and view.
     $(".square").click(function(event){
         var idString=event.target.id;
         var idSplitted=idString.split('x');
