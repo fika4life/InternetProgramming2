@@ -18,6 +18,14 @@ $area = $_GET['area'];
 $room = $_GET['rum'];
 $price = $_GET['pris'];
 $fee = $_GET['avgift'];
+$orderbyCOL = $_GET['orderbyCOL'];
+$orderbyASC = $_GET['orderbyASC']==='ASC';
+
+$columns=array("lan" , "objekttyp" , "adress", "area", "rum", "pris", "avgift");
+
+if (!in_array($orderbyCOL, $columns)){
+    $orderbyCOL = "pris";
+}
 
 setcookie("userInput" ,json_encode(array("lan"=>$county,"objekttyp"=>$type, "area"=>$area, "rum"=>$room, "pris"=>$price, "avgift"=>$fee)));
 
@@ -25,7 +33,7 @@ $conn = connect();
 
 
 $db = new DatabaseHandler($conn);
-$result = $db->searchDatabase($county,$type,$area,$room,$price,$fee);
+$result = $db->searchDatabase($county,$type,$area,$room,$price,$fee,$orderbyCOL, $orderbyASC);
 
 
 

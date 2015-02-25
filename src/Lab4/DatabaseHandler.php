@@ -15,19 +15,18 @@ class DatabaseHandler{
         $this-> conn=$PDO;
     }
 
+    //used to populate dropdown menus dynamically
     function getAllValuesInColumn($column){
         $res = $this->conn->query(
             "SELECT DISTINCT " . $column .  " FROM bostader"
         );
-
+        //returns all results from $res object
         return $res -> fetchAll();
-
 
     }
 
-    function searchDatabase($aCounty, $aType=false, $minArea=false, $minRoom=false, $maxPrice=false, $maxFee=false){
+    function searchDatabase($aCounty, $aType=false, $minArea=false, $minRoom=false, $maxPrice=false, $maxFee=false, $orderbyCOL="pris", $orderbyASC = true){
         $query = "SELECT * FROM bostader WHERE ";
-
 
         $query.= "lan=:lan AND ";
 
@@ -46,13 +45,25 @@ class DatabaseHandler{
         if($maxFee){
             $query.= "avgift<=:avgift";
         }
+        //takes away AND if query finished.
         if(substr($query,strlen($query)-5,strlen($query))==" AND "){
             $query = substr($query,0,strlen($query)-5);
         }
 
+        //orders results according to users choice
+        $query.= " ORDER BY " . $orderbyCOL ;
+
+        if ($orderbyASC){
+            $query.= " ASC";
+        }else{
+            $query.= " DESC";
+        }
 
 
+        //prepare query first and add the values in next step
         $stmt =  $this->conn->prepare($query);
+
+
         $stmt -> bindParam(':lan', $aCounty);
         if ($aType){
             $stmt -> bindParam(':typ', $aType);
@@ -81,4 +92,3 @@ class DatabaseHandler{
     }
 
 }
-//Add results to results page.

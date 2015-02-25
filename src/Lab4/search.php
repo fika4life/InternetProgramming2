@@ -13,9 +13,6 @@
         $userInputCookie = (array)json_decode($_COOKIE['userInput']);
 
     }
-
-
-
         $counties = $db->getAllValuesInColumn("lan");
         $types = $db->getAllValuesInColumn("objekttyp");
 ?>
@@ -55,11 +52,34 @@
     <input type="number" name="pris" value="<?php if(isset($userInputCookie)){echo $userInputCookie['pris'];} ?>">
     Max Avgift
     <input type="number" name="avgift" value="<?php if(isset($userInputCookie)){echo $userInputCookie['avgift'];} ?>">
+
+
+    <br>
+    <br>
+    <br>
+    Sort by
+    <select name="orderbyCOL">
+        <option value="lan">Län</option>
+        <option value="typ">Objekttyp</option>
+        <option value="area">Area</option>
+        <option value="rum">Rum</option>
+        <option value="pris">Pris</option>
+        <option value="avgift">Avgift</option>
+    </select>
+
+    Stigande/Fallande
+    <select name="orderbyASC">
+        <option value="ASC">Stigande</option>
+        <option value="DESC">Fallande</option>
+
+    </select>
+
+    <br>
+    <br>
     <input type="submit" value="Search">
 </form>
 
 
-<p style ='color:red;'> to do:
-    Need to make objekt choices selected from database</p>
+
 </body>
 </html>
