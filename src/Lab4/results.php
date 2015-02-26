@@ -21,8 +21,9 @@ $fee = $_GET['avgift'];
 $orderbyCOL = $_GET['orderbyCOL'];
 $orderbyASC = $_GET['orderbyASC']==='ASC';
 
-$columns=array("lan" , "objekttyp" , "adress", "area", "rum", "pris", "avgift");
 
+//protect us from SQL interjections. Sets default value to price in that case.
+$columns=array("lan" , "objekttyp" , "adress", "area", "rum", "pris", "avgift");
 if (!in_array($orderbyCOL, $columns)){
     $orderbyCOL = "pris";
 }
