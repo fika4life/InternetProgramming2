@@ -25,7 +25,7 @@ class DatabaseHandler{
 
     }
 
-    function searchDatabase($aCounty, $aType=false, $minArea=false, $minRoom=false, $maxPrice=false, $maxFee=false){
+    function searchDatabase($aCounty, $aType=false, $minArea=false, $minRoom=false, $maxPrice=false, $maxFee=false, $orderbyCOL="pris", $orderbyASC = true){
         $query = "SELECT * FROM bostader WHERE ";
 
 
@@ -50,6 +50,15 @@ class DatabaseHandler{
             $query = substr($query,0,strlen($query)-5);
         }
 
+//        $query.= " ORDER BY :orderbyCOL";
+        $query.= " ORDER BY " . $orderbyCOL ;
+
+        if ($orderbyASC){
+            $query.= " ASC";
+        }else{
+            $query.= " DESC";
+        }
+
 
 
         $stmt =  $this->conn->prepare($query);
@@ -69,6 +78,7 @@ class DatabaseHandler{
         if($maxFee){
             $stmt -> bindParam(':avgift', $maxFee);
         }
+//        $stmt -> bindParam(':orderbyCOL', $orderbyCOL);
 
 
         $stmt->execute();
@@ -81,4 +91,3 @@ class DatabaseHandler{
     }
 
 }
-//Add results to results page.
