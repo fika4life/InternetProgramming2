@@ -15,12 +15,7 @@
     }
         $counties = $db->getAllValuesInColumn("lan");
         $types = $db->getAllValuesInColumn("objekttyp");
-
-
-
 ?>
-
-
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -28,6 +23,7 @@
     <title>BostadBlocket </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
     <script src="ajax.js"></script>
+    <script src="jquery.cookie.js"></script>
 </head>
 <body>
 
@@ -62,27 +58,6 @@
     Max Avgift
     <input type="number" name="avgift" value="<?php if(isset($userInputCookie)){echo $userInputCookie['avgift'];} ?>">
 
-
-    <br>
-    <br>
-    <br>
-    Sort by
-    <select name="orderbyCOL">
-        <option value="lan">Län</option>
-        <option value="typ">Objekttyp</option>
-        <option value="area">Area</option>
-        <option value="rum">Rum</option>
-        <option value="pris">Pris</option>
-        <option value="avgift">Avgift</option>
-    </select>
-
-    Stigande/Fallande
-    <select name="orderbyASC">
-        <option value="ASC">Stigande</option>
-        <option value="DESC">Fallande</option>
-
-    </select>
-
     <br>
     <br>
     <input id="submit" type="submit" value="Search">
@@ -93,14 +68,14 @@
 <h1>Blocket Results</h1>
 
 
-<table >
+<table>
     <thead>
-    <td>Län</td>
-    <td>Objekttyp</td>
-    <td>Area</td>
-    <td>Rum</td>
-    <td>Pris</td>
-    <td>Avgift</td>
+    <td id="lan">Län</td>
+    <td id="objekttyp">Objekttyp</td>
+    <td id="area">Area</td>
+    <td id="rum">Rum</td>
+    <td id="pris">Pris</td>
+    <td id="avgift">Avgift</td>
     </thead>
     <tbody id="results">
 
